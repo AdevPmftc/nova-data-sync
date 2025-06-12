@@ -1,8 +1,8 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Import\Jobs;
+namespace AdevPmftc\NovaDataSync\Import\Jobs;
 
-use Wsaefulloh\NovaDataSync\Import\Models\Import;
+use AdevPmftc\NovaDataSync\Import\Models\Import;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Export\Models;
+namespace AdevPmftc\NovaDataSync\Export\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

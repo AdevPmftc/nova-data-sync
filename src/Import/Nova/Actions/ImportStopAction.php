@@ -1,9 +1,9 @@
 <?php
 
-// namespace Wsaefulloh\NovaDataSync\Import\Nova\Actions;
+// namespace AdevPmftc\NovaDataSync\Import\Nova\Actions;
 
-// use Wsaefulloh\NovaDataSync\Enum\Status;
-// use Wsaefulloh\NovaDataSync\Import\Models\Import;
+// use AdevPmftc\NovaDataSync\Enum\Status;
+// use AdevPmftc\NovaDataSync\Import\Models\Import;
 // use Illuminate\Support\Collection;
 // use Laravel\Nova\Actions\Action;
 // use Laravel\Nova\Actions\ActionResponse;
@@ -33,10 +33,10 @@
 //         return Action::message('Attempt to stop the import started..');
 //     }
 // }
-namespace Wsaefulloh\NovaDataSync\Import\Nova\Actions;
+namespace AdevPmftc\NovaDataSync\Import\Nova\Actions;
 
-use Wsaefulloh\NovaDataSync\Enum\Status;
-use Wsaefulloh\NovaDataSync\Import\Models\Import;
+use AdevPmftc\NovaDataSync\Enum\Status;
+use AdevPmftc\NovaDataSync\Import\Models\Import;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Actions\ActionResponse;

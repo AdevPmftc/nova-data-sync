@@ -1,6 +1,6 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Enum;
+namespace AdevPmftc\NovaDataSync\Enum;
 
 enum Status: string
 {

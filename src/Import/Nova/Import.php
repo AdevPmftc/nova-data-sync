@@ -1,10 +1,10 @@
 <?php
 
-// namespace Wsaefulloh\NovaDataSync\Import\Nova;
+// namespace AdevPmftc\NovaDataSync\Import\Nova;
 
 // use App\Nova\Resource;
-// use Wsaefulloh\NovaDataSync\Enum\Status as StatusEnum;
-// use Wsaefulloh\NovaDataSync\Import\Nova\Actions\ImportStopAction;
+// use AdevPmftc\NovaDataSync\Enum\Status as StatusEnum;
+// use AdevPmftc\NovaDataSync\Import\Nova\Actions\ImportStopAction;
 // use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 // use Flatroy\FieldProgressbar\FieldProgressbar;
 // use Illuminate\Auth\Access\AuthorizationException;
@@ -22,7 +22,7 @@
 //     /**
 //      * The model the resource corresponds to.
 //      */
-//     public static string $model = \Wsaefulloh\NovaDataSync\Import\Models\Import::class;
+//     public static string $model = \AdevPmftc\NovaDataSync\Import\Models\Import::class;
 
 //     /**
 //      * The single value that should be used to represent the resource when being displayed.
@@ -118,7 +118,7 @@
 //             ->onlyOnDetail()
 //             ->readonly();
 
-//         $import = \Wsaefulloh\NovaDataSync\Import\Models\Import::find($resourceId);
+//         $import = \AdevPmftc\NovaDataSync\Import\Models\Import::find($resourceId);
 
 //         if (!$import->hasMedia('failed')) {
 //             return $failedReportField;
@@ -208,11 +208,11 @@
 //         return false;
 //     }
 // }
-namespace Wsaefulloh\NovaDataSync\Import\Nova;
+namespace AdevPmftc\NovaDataSync\Import\Nova;
 
 use App\Nova\Resource;
-use Wsaefulloh\NovaDataSync\Enum\Status as StatusEnum;
-use Wsaefulloh\NovaDataSync\Import\Nova\Actions\ImportStopAction;
+use AdevPmftc\NovaDataSync\Enum\Status as StatusEnum;
+use AdevPmftc\NovaDataSync\Import\Nova\Actions\ImportStopAction;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Flatroy\FieldProgressbar\FieldProgressbar;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -227,7 +227,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Import extends Resource
 {
-    public static string $model = \Wsaefulloh\NovaDataSync\Import\Models\Import::class;
+    public static string $model = \AdevPmftc\NovaDataSync\Import\Models\Import::class;
     public static $title = 'id';
     public static $search = ['id'];
     public static $displayInNavigation = false;
@@ -287,7 +287,7 @@ class Import extends Resource
             ->onlyOnDetail()
             ->readonly();
 
-        $import = \Wsaefulloh\NovaDataSync\Import\Models\Import::find($resourceId);
+        $import = \AdevPmftc\NovaDataSync\Import\Models\Import::find($resourceId);
         if (!$import || !$import->hasMedia('failed')) {
             return $field;
         }

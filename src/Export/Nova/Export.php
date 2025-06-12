@@ -1,12 +1,12 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Export\Nova;
+namespace AdevPmftc\NovaDataSync\Export\Nova;
 
 use App\Nova\Resource;
-use Wsaefulloh\NovaDataSync\Enum\Status as StatusEnum;
+use AdevPmftc\NovaDataSync\Enum\Status as StatusEnum;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Auth\Access\AuthorizationException;
-use Wsaefulloh\NovaDataSync\Export\Nova\Action\ExportStopAction;
+use AdevPmftc\NovaDataSync\Export\Nova\Action\ExportStopAction;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -21,7 +21,7 @@ class Export extends Resource
     /**
      * The model the resource corresponds to.
      */
-    public static string $model = \Wsaefulloh\NovaDataSync\Export\Models\Export::class;
+    public static string $model = \AdevPmftc\NovaDataSync\Export\Models\Export::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

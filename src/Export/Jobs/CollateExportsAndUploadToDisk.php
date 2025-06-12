@@ -1,10 +1,10 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Export\Jobs;
+namespace AdevPmftc\NovaDataSync\Export\Jobs;
 
-use Wsaefulloh\NovaDataSync\Enum\Status;
-use Wsaefulloh\NovaDataSync\Export\Models\Export;
-use Wsaefulloh\NovaDataSync\Import\Events\ExportCompletedEvent;
+use AdevPmftc\NovaDataSync\Enum\Status;
+use AdevPmftc\NovaDataSync\Export\Models\Export;
+use AdevPmftc\NovaDataSync\Import\Events\ExportCompletedEvent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

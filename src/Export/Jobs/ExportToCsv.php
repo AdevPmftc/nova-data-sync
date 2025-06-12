@@ -1,6 +1,6 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Export\Jobs;
+namespace AdevPmftc\NovaDataSync\Export\Jobs;
 
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Wsaefulloh\NovaDataSync\Export\Jobs\ExportProcessor;
+use AdevPmftc\NovaDataSync\Export\Jobs\ExportProcessor;
 use Illuminate\Support\Facades\Log; 
 use Spatie\SimpleExcel\SimpleExcelWriter;
 use Carbon\Carbon;

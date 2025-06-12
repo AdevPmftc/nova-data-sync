@@ -1,10 +1,10 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync;
+namespace AdevPmftc\NovaDataSync;
 
-use Wsaefulloh\NovaDataSync\Export\Nova\Export;
-use Wsaefulloh\NovaDataSync\Http\Middleware\Authorize;
-use Wsaefulloh\NovaDataSync\Import\Nova\Import;
+use AdevPmftc\NovaDataSync\Export\Nova\Export;
+use AdevPmftc\NovaDataSync\Http\Middleware\Authorize;
+use AdevPmftc\NovaDataSync\Import\Nova\Import;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;

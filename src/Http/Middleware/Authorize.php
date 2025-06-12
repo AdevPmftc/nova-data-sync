@@ -1,9 +1,9 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Http\Middleware;
+namespace AdevPmftc\NovaDataSync\Http\Middleware;
 
 use Closure;
-use Wsaefulloh\NovaDataSync\NovaDataSync;
+use AdevPmftc\NovaDataSync\NovaDataSync;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Laravel\Nova\Nova;

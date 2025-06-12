@@ -1,8 +1,8 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync;
+namespace AdevPmftc\NovaDataSync;
 
-use Wsaefulloh\NovaDataSync\Resources\Import;
+use AdevPmftc\NovaDataSync\Resources\Import;
 use Illuminate\Http\Request;
 use Laravel\Nova\Exceptions\NovaException;
 use Laravel\Nova\Menu\MenuItem;

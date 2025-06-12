@@ -1,8 +1,8 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Import\Events;
+namespace AdevPmftc\NovaDataSync\Import\Events;
 
-use Wsaefulloh\NovaDataSync\Export\Models\Export;
+use AdevPmftc\NovaDataSync\Export\Models\Export;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

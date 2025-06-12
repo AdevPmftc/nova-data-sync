@@ -1,12 +1,12 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Export\Jobs;
+namespace AdevPmftc\NovaDataSync\Export\Jobs;
 
-use Wsaefulloh\NovaDataSync\Enum\Status;
-use Wsaefulloh\NovaDataSync\Export\Models\Export;
-use Wsaefulloh\NovaDataSync\Import\Events\ExportStartedEvent;
-use Wsaefulloh\NovaDataSync\Export\Jobs\CollateExportsAndUploadToDisk;
-use Wsaefulloh\NovaDataSync\Export\Jobs\ExportToCsv;
+use AdevPmftc\NovaDataSync\Enum\Status;
+use AdevPmftc\NovaDataSync\Export\Models\Export;
+use AdevPmftc\NovaDataSync\Import\Events\ExportStartedEvent;
+use AdevPmftc\NovaDataSync\Export\Jobs\CollateExportsAndUploadToDisk;
+use AdevPmftc\NovaDataSync\Export\Jobs\ExportToCsv;
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Auth\Authenticatable;

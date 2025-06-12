@@ -1,11 +1,11 @@
 <?php
 
-namespace Wsaefulloh\NovaDataSync\Import\Jobs;
+namespace AdevPmftc\NovaDataSync\Import\Jobs;
 
-use Wsaefulloh\NovaDataSync\Enum\Status;
-use Wsaefulloh\NovaDataSync\Import\Events\ImportCompletedEvent;
-use Wsaefulloh\NovaDataSync\Import\Events\ImportStartedEvent;
-use Wsaefulloh\NovaDataSync\Import\Models\Import;
+use AdevPmftc\NovaDataSync\Enum\Status;
+use AdevPmftc\NovaDataSync\Import\Events\ImportCompletedEvent;
+use AdevPmftc\NovaDataSync\Import\Events\ImportStartedEvent;
+use AdevPmftc\NovaDataSync\Import\Models\Import;
 use Illuminate\Bus\Batch;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
