@@ -2,7 +2,7 @@
 
 This is a Laravel Nova tool to that provides features to import and export CSV files.
 
-![Import Action](https://raw.githubusercontent.com/adevpmftc/nova-data-sync/master/docs/import-index.png)
+![Import Action](https://raw.githubusercontent.com/adevpmftc/nova-data-sync/main/docs/import-index.png)
 
 ## Installation
 
@@ -221,7 +221,7 @@ Here is a sample `ExportProcessor`:
 ```php
 namespace App\Nova\Exports;
 
-use App\Models\User;
+use App\Models\Product;
 use AdevPmftc\NovaDataSync\Export\Jobs\ExportProcessor;
 use Illuminate\Contracts\Database\Query\Builder;
 
@@ -229,7 +229,34 @@ class UserExportProcessor extends ExportProcessor
 {
     public function query(): Builder
     {
-        return User::query();
+        return Product::query()->with('productCategory');
+    }
+}
+```
+
+You can also format the row data by defining the `formatRow()` method:
+
+```php
+namespace App\Nova\Exports;
+
+use App\Models\Product;
+use AdevPmftc\NovaDataSync\Export\Jobs\ExportProcessor;
+use Illuminate\Contracts\Database\Query\Builder;
+
+class UserExportProcessor extends ExportProcessor
+{
+    public function query(): Builder
+    {
+        return Product::query()->with('productCategory');
+    }
+    
+    public function formatRow($row): array
+    {
+        return [
+            'name' => $row->name,
+            'product_category' => $row->productCategory->name ?? null,
+            'price' => $row->price,
+        ];
     }
 }
 ```
@@ -257,26 +284,108 @@ class UserExportProcessor extends ExportProcessor
 }
 ```
 
-Next, create an `ExportNovaAction` class and create a `processor()` function that returns the processor class you just
-created.
+You can also override methods in the `ExportProcessor` class to customize the export process. The following methods can
+be overridden:
+
+```php
+<?php
+
+namespace App\Nova\Exports\Products;
+
+use App\Models\Product;
+use AdevPmftc\NovaDataSync\Export\Jobs\ExportProcessor;
+use Illuminate\Contracts\Database\Query\Builder;
+
+class ProductExportProcessor extends ExportProcessor
+{
+    public function __construct(public string $startDate, public string $endDate)
+    {
+        // Always remember to call the parent constructor when overriding the constructor
+        parent::__construct();
+    }
+
+    public function query(): Builder
+    {
+        $startDate = Carbon::make($this->startDate)->startOfDay();
+        $endDate = Carbon::make($this->endDate)->endOfDay();
+
+        return Product::query()
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->with('productCategory');
+    }
+
+    public function formatRow($row): array
+    {
+        return [
+            'name' => $row->name,
+            'product cat' => $row->productCategory->name ?? null,
+            'price' => $row->price,
+        ];
+    }
+
+    public static function queueName(): string
+    {
+        return 'custom-queue-name'; // Default is whatever is set in the config
+    }
+
+    public function allowFailures(): bool
+    {
+        return true; // Default is whatever is set in the config
+    }
+
+    public function disk(): string
+    {
+        return 'custom-disk-name'; // Default is whatever is set in the config
+    }
+
+    public static function chunkSize(): int
+    {
+        return 100; // Default is whatever is set in the config
+    }
+}
+```
+
+Next, in order to use it as a Nova Action, create an `ExportNovaAction` class and create a `processor()` function that 
+returns the processor class you just created.
 
 ```php
 namespace App\Nova\Exports;
 
-use AdevPmftc\NovaDataSync\Export\Jobs\ExportProcessor;
 use AdevPmftc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class UserExportAction extends ExportNovaAction
+class ProductExportAction extends ExportNovaAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new UserExportProcessor();
+        return new ProductExportProcessor();
     }
 }
 ```
 
 If you have additional fields that you want to add to the Export feature, you can define them in the `fields()` method
 and access them through the `$fields` property.
+
+```php
+namespace App\Nova\Exports;
+
+use AdevPmftc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
+
+class ProductExportAction extends ExportNovaAction
+{
+    protected function processor(ActionFields $fields, Collection $models): ExportProcessor
+    {
+        return new ProductExportProcessor($fields->get('start_date'), $fields->get('end_date'));
+    }
+
+    public function fields(NovaRequest $request): array
+    {
+        return [
+            Date::make('Start Date')->required(),
+            Date::make('End Date')->required(),
+        ];
+    }
+}
+```
 
 Now, you can add the `ExportNovaAction` to your Nova Resource:
 

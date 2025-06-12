@@ -6,12 +6,15 @@ return [
         'disk' => env('MEDIA_DISK', 'public'),
         'chunk_size' => 1000,
         'queue' => 'default',
+        'table_name' => 'imports',
     ],
 
     'exports' => [
         'disk' => env('MEDIA_DISK', 'public'),
         'chunk_size' => 1000,
         'queue' => 'default',
+        'table_name' => 'exports',
+        'allow_failures' => true,
     ],
 
     'nova_resources' => [
