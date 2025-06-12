@@ -2,7 +2,7 @@
 
 This is a Laravel Nova tool to that provides features to import and export CSV files.
 
-![Import Action](https://raw.githubusercontent.com/adevpmftc/nova-data-sync/main/docs/import-index.png)
+![Import Action](https://raw.githubusercontent.com/adevpmftc/nova-data-sync/master/docs/import-index.png)
 
 ## Installation
 
