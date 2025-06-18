@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/imports/sample', ImportSampleController::class);
+Route::get('/imports/sample2', ImportSampleController::class);
