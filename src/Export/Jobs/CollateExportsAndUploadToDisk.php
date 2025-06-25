@@ -64,7 +64,8 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
 
             // Log::info('HESOYAM', []);
 
-            $collatedFileName = $this->exportName . '_' . now()->format('Y-m-d_H:i:s') . '.csv';
+            // $collatedFileName = $this->exportName . '_' . now()->format('Y-m-d_H:i:s') . '.csv';
+            $collatedFileName = $this->exportName . '_' . now()->format('YmdHis') . '.csv';
             $collatedFilePath = $this->storagePath($collatedFileName);
             $collatedFileWriter = SimpleExcelWriter::create($collatedFilePath);
 
