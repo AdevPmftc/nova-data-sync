@@ -27,7 +27,7 @@ abstract class ExportProcessor implements ShouldQueue
     protected ?Authenticatable $user = null;
     protected int $perPage;
     protected string $name;
-    protected string $disk;
+    protected string $disk = '';
     protected string $directory;
 
     protected string $queueName = 'exports';
@@ -61,7 +61,7 @@ abstract class ExportProcessor implements ShouldQueue
     {
         $this->initialize();
         $exportName = $this->name;
-        $exportDisk = $this->disk;
+        $exportDisk = $this->getDisk();
         $exportDirectory = $this->directory;
 
         $query = $this->query();
@@ -111,13 +111,13 @@ abstract class ExportProcessor implements ShouldQueue
                 ]);
             })
             ->then(function (Batch $batch) use ($export, $batchUuid, $exportName, $exportDisk, $exportDirectory, $totalJobs) {
-                // Log::info(sprintf('[%s] [%s] Batch then', self::class, $batchUuid), [
-                //     'export' => $export,
-                //     'batchId' => $batch->id,
-                //     'exportName' => $exportName,
-                //     'exportDisk' => $exportDisk,
-                //     'exportDirectory' => $exportDirectory
-                // ]);
+                Log::info(sprintf('[%s] [%s] Batch then', self::class, $batchUuid), [
+                    'export' => $export,
+                    'batchId' => $batch->id,
+                    'exportName' => $exportName,
+                    'exportDisk' => $exportDisk,
+                    'exportDirectory' => $exportDirectory
+                ]);
 
                 dispatch((new CollateExportsAndUploadToDisk(
                     $this->queueName,
@@ -146,12 +146,28 @@ abstract class ExportProcessor implements ShouldQueue
             ->dispatch();
     }
 
+    protected function getDisk(): string
+    {
+        return $this->disk ?: config('nova-data-sync.exports.disk', 'public');
+    }
+
     private function initialize(): void
     {
-        if (empty($this->name)) $this->name = class_basename($this);
-        if (empty($this->disk)) $this->disk = 'public';
-        if (empty($this->perPage)) $this->perPage = 2000;
-        if (empty($this->directory)) $this->directory = '';
+        if (empty($this->name)) {
+            $this->name = class_basename($this);
+        }
+
+        // if (empty($this->disk)) {
+        //     $this->disk = config('nova-data-sync.exports.disk', 'public');
+        // }
+
+        if (empty($this->perPage)) {
+            $this->perPage = 2000;
+        }
+
+        if (empty($this->directory)) {
+            $this->directory = '';
+        }
     }
 
     private function initializeExport(int $totalRow, string $batchUuid): Export

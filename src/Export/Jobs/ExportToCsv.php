@@ -37,12 +37,12 @@ class ExportToCsv implements ShouldQueue
     ) {
     }
 
-    // public function displayName(): string
-    // {
-    //     $displayName = sprintf("%s-%s-%s", self::class, $this->batch()->id, $this->page);
-    //     Log::info(sprintf('[%s] [%s] displayName [%s]', self::class, $this->batchUuid, $displayName), []);
-    //     return $displayName;
-    // }
+    public function displayName(): string
+    {
+        $displayName = sprintf("%s-%s-%s", self::class, $this->batch()->id, $this->page);
+        Log::info(sprintf('[%s] [%s] displayName [%s]', self::class, $this->batchUuid, $displayName), []);
+        return $displayName;
+    }
 
     public function handle(): void
     {

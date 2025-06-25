@@ -49,12 +49,12 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
         $this->onQueue($queueName);
     }
 
-    // public function displayName(): string
-    // {
-    //     $displayName = sprintf("%s-%s", self::class, $this->batchId);
-    //     Log::info(sprintf('[%s] [%s] displayName [%s]', self::class, $this->batchUuid, $displayName), []);
-    //     return $displayName;
-    // }
+    public function displayName(): string
+    {
+        $displayName = sprintf("%s-%s", self::class, $this->batchId);
+        Log::info(sprintf('[%s] [%s] displayName [%s]', self::class, $this->batchUuid, $displayName), []);
+        return $displayName;
+    }
 
     public function handle(): void
     {
@@ -69,11 +69,11 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
             $collatedFilePath = $this->storagePath($collatedFileName);
             $collatedFileWriter = SimpleExcelWriter::create($collatedFilePath);
 
-            // Log::info(sprintf('[%s] [%s] Collating info', self::class, $this->batchUuid), [
-            //     'collatedFileName' => $collatedFileName,
-            //     'collatedFilePath' => $collatedFilePath,
-            //     'collatedFileWriter' => $collatedFileWriter
-            // ]);
+            Log::info(sprintf('[%s] [%s] Collating info', self::class, $this->batchUuid), [
+                'collatedFileName' => $collatedFileName,
+                'collatedFilePath' => $collatedFilePath,
+                'collatedFileWriter' => $collatedFileWriter
+            ]);
 
             foreach ($files as $file) {
                 $fileRows = SimpleExcelReader::create($this->storagePath($file))->getRows();

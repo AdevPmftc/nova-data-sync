@@ -37,7 +37,7 @@ abstract class ImportNovaAction extends Action
     public function helpText(): string
     {
         $params = http_build_query(['class' => $this->processor]);
-        $url = url('nova-vendor/nova-data-sync/imports/sample2?' . $params);
+        $url = url('nova-vendor/nova-data-sync/imports/sample?' . $params);
         return '<a href="' . $url . '">Download sample file</a>';
     }
 
