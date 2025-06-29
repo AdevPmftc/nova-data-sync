@@ -69,11 +69,11 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
             $collatedFilePath = $this->storagePath($collatedFileName);
             $collatedFileWriter = SimpleExcelWriter::create($collatedFilePath);
 
-            Log::info(sprintf('[%s] [%s] Collating info', self::class, $this->batchUuid), [
-                'collatedFileName' => $collatedFileName,
-                'collatedFilePath' => $collatedFilePath,
-                'collatedFileWriter' => $collatedFileWriter
-            ]);
+            // Log::info(sprintf('[%s] [%s] Collating info', self::class, $this->batchUuid), [
+            //     'collatedFileName' => $collatedFileName,
+            //     'collatedFilePath' => $collatedFilePath,
+            //     'collatedFileWriter' => $collatedFileWriter
+            // ]);
 
             foreach ($files as $file) {
                 $fileRows = SimpleExcelReader::create($this->storagePath($file))->getRows();
@@ -104,6 +104,8 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
                 'status' => Status::COMPLETED->value,
                 'completed_at' => now(),
             ]);
+
+            event(new ExportCompletedEvent($this->export));
 
             Log::info(sprintf('[%s] [%s] Update export completed', self::class, $this->batchUuid), [
                 'export' => $this->export

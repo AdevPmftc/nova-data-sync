@@ -111,13 +111,13 @@ abstract class ExportProcessor implements ShouldQueue
                 ]);
             })
             ->then(function (Batch $batch) use ($export, $batchUuid, $exportName, $exportDisk, $exportDirectory, $totalJobs) {
-                Log::info(sprintf('[%s] [%s] Batch then', self::class, $batchUuid), [
-                    'export' => $export,
-                    'batchId' => $batch->id,
-                    'exportName' => $exportName,
-                    'exportDisk' => $exportDisk,
-                    'exportDirectory' => $exportDirectory
-                ]);
+                // Log::info(sprintf('[%s] [%s] Batch then', self::class, $batchUuid), [
+                //     'export' => $export,
+                //     'batchId' => $batch->id,
+                //     'exportName' => $exportName,
+                //     'exportDisk' => $exportDisk,
+                //     'exportDirectory' => $exportDirectory
+                // ]);
 
                 dispatch((new CollateExportsAndUploadToDisk(
                     $this->queueName,
