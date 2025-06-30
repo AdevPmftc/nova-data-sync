@@ -13,7 +13,7 @@ class SendExportCompletedNovaNotification
             return;
         }
 
-        $event->import->user->notify(
+        $event->export->user->notify(
             NovaNotification::make()
                 ->message('Your export has completed.')
                 ->icon('check-circle')
