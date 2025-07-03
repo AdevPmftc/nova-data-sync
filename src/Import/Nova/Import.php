@@ -49,7 +49,7 @@ class Import extends Resource
 
             FieldProgressbar::make('Progress', fn ($model) => 
                 $model->file_total_rows
-                    ? $model->total_rows_processed / $model->file_total_rows
+                    ? ($model->total_rows_processed + $model->total_rows_failed) / $model->file_total_rows
                     : 0
             )->onlyOnDetail(),
 
@@ -61,7 +61,7 @@ class Import extends Resource
             Text::make('Duration', function () {
                 return $this->started_at && $this->completed_at
                     ? $this->started_at->diffForHumans($this->completed_at, true)
-                    : null;
+                    : 0;
             })->onlyOnDetail(),
         ];
 
