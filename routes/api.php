@@ -1,7 +1,9 @@
 <?php
 
-use AdevPmftc\NovaDataSync\Import\Http\Controllers\ImportSampleController;
+use Appwrd\NovaDataSync\Import\Http\Controllers\ImportSampleController;
+use Appwrd\NovaDataSync\Export\Models\Export;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +17,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/imports/sample', ImportSampleController::class);
+Route::get('/export-status/{userId}', function ($userId) {
+    $latestExport = \Appwrd\NovaDataSync\Export\Models\Export::where('user_id', $userId)
+        ->latest()
+        ->first();
+
+    $isRecent = false;
+    if ($latestExport) {
+        $updatedAt = Carbon::parse($latestExport->updated_at);
+        $isRecent = $updatedAt->gt(now()->subMinutes(1));
+    }
+
+    $cacheKey = 'export_alert_shown_for_user_' . $userId . '_export_' . $latestExport->id;
+
+    if (request()->has('clear')) {
+        Cache::forget($cacheKey);
+        return response()->json(['cleared' => true]);
+    }
+
+    $shouldShowAlert = false;
+
+    if ($latestExport?->status === 'Completed' && $isRecent && !Cache::has($cacheKey)) {
+        Cache::put($cacheKey, true, now()->addMinutes(5));
+        $shouldShowAlert = true;
+    }
+
+    return response()->json(['done' => $shouldShowAlert]);
+});

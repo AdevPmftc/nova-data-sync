@@ -87,6 +87,9 @@ abstract class ExportProcessor implements ShouldQueue
                 'status' => Status::COMPLETED->value,
                 'completed_at' => now(),
             ]);
+            cache()->put('export_done_user_' . $this->userId, true, now()->addMinutes(1));
+            sleep(3);
+            $export->delete();
             Log::info(sprintf('[%s] [%s] No records to export', self::class, $batchUuid), $export->toArray());
             return;
         }
@@ -111,14 +114,6 @@ abstract class ExportProcessor implements ShouldQueue
                 ]);
             })
             ->then(function (Batch $batch) use ($export, $batchUuid, $exportName, $exportDisk, $exportDirectory, $totalJobs) {
-                // Log::info(sprintf('[%s] [%s] Batch then', self::class, $batchUuid), [
-                //     'export' => $export,
-                //     'batchId' => $batch->id,
-                //     'exportName' => $exportName,
-                //     'exportDisk' => $exportDisk,
-                //     'exportDirectory' => $exportDirectory
-                // ]);
-
                 dispatch((new CollateExportsAndUploadToDisk(
                     $this->queueName,
                     $export,
@@ -156,10 +151,6 @@ abstract class ExportProcessor implements ShouldQueue
         if (empty($this->name)) {
             $this->name = class_basename($this);
         }
-
-        // if (empty($this->disk)) {
-        //     $this->disk = config('nova-data-sync.exports.disk', 'public');
-        // }
 
         if (empty($this->perPage)) {
             $this->perPage = 2000;

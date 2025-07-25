@@ -1,10 +1,10 @@
 <?php
 
-namespace AdevPmftc\NovaDataSync;
+namespace Appwrd\NovaDataSync;
 
-use AdevPmftc\NovaDataSync\Export\Nova\Export;
-use AdevPmftc\NovaDataSync\Http\Middleware\Authorize;
-use AdevPmftc\NovaDataSync\Import\Nova\Import;
+use Appwrd\NovaDataSync\Export\Nova\Export;
+use Appwrd\NovaDataSync\Http\Middleware\Authorize;
+use Appwrd\NovaDataSync\Import\Nova\Import;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
@@ -37,6 +37,12 @@ class ToolServiceProvider extends ServiceProvider
                 Import::class,
                 Export::class,
             ]);
+
+            Nova::provideToScript([
+                'userId' => auth()->id(),
+            ]);
+
+            Nova::script('export-alert', __DIR__.'/../resources/js/export-alert.js');
         });
     }
 
