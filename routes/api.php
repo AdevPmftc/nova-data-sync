@@ -1,7 +1,7 @@
 <?php
 
-use Appwrd\NovaDataSync\Import\Http\Controllers\ImportSampleController;
-use Appwrd\NovaDataSync\Export\Models\Export;
+use AdevPmftc\NovaDataSync\Import\Http\Controllers\ImportSampleController;
+use AdevPmftc\NovaDataSync\Export\Models\Export;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
 
