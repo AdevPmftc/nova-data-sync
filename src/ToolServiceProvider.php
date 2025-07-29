@@ -1,6 +1,6 @@
 <?php
 
-namespace Appwrd\NovaDataSync;
+namespace AdevPmftc\NovaDataSync;
 
 use Appwrd\NovaDataSync\Export\Nova\Export;
 use Appwrd\NovaDataSync\Http\Middleware\Authorize;
