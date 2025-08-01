@@ -1,8 +1,6 @@
 const userId = Nova.config('userId');
 let alertShown = false;
 
-const userId = Nova.config('userId');
-
 if (userId) {
   fetch(`/nova-vendor/nova-data-sync/export-ongoing/${userId}`)
     .then(res => res.json())
