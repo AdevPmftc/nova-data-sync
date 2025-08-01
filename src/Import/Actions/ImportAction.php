@@ -52,7 +52,7 @@ class ImportAction
             'filename' => basename($filepath),
             'status' => Status::PENDING,
             'processor' => $processor,
-            'file_total_rows' => $rows->count(),
+            'file_total_rows' => $excelReader->getRows()->count(),
         ]);
 
         // Attach the file as media
