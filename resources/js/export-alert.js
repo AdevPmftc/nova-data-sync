@@ -1,29 +1,26 @@
 const userId = Nova.config('userId');
 let alertShown = false;
+let lastShownExportId = null;
 
 if (userId) {
   const interval = setInterval(() => {
     fetch(`/nova-vendor/nova-data-sync/export-status/${userId}`)
       .then(res => res.json())
       .then(data => {
-        console.log('Export status:', data);
+        if (data.done && data.export_id !== lastShownExportId) {
+          lastShownExportId = data.export_id;
 
-        if (data.done && !alertShown) {
-          alertShown = true; // supaya tidak muncul lagi
-          Nova.success('Export finish!');
+          if (data.filename) {
+            Nova.success(`Export finished.`);
+          } else {
+            Nova.success('Export finished (no data).');
+          }
 
-          // Clear cache untuk export berikutnya
-          fetch(`/nova-vendor/nova-data-sync/export-status/${userId}?clear=true`)
-            .then(() => {
-              // Reset alertShown setelah 3 detik agar bisa muncul lagi jika ada export baru
-              setTimeout(() => {
-                alertShown = false;
-              }, 3000);
-            });
+          fetch(`/nova-vendor/nova-data-sync/export-status/${userId}?clear=true`);
         }
       })
       .catch(error => {
         console.error('Error polling export status:', error);
       });
-  }, 1000);
+  }, 3000);
 }
