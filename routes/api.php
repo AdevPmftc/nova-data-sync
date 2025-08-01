@@ -42,5 +42,10 @@ Route::get('/export-status/{userId}', function ($userId) {
         $shouldShowAlert = true;
     }
 
-    return response()->json(['done' => $shouldShowAlert]);
+    // return response()->json(['done' => $shouldShowAlert]);
+    return response()->json([
+        'done' => $shouldShowAlert,
+        'export_id' => $latestExport?->id,
+        'filename' => $latestExport?->filename,
+    ]);
 });
