@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
 
 Route::get('/imports/sample', ImportSampleController::class);
 Route::get('/export-ongoing/{userId}', function ($userId) {
-    return \Appwrd\NovaDataSync\Export\Models\Export::query()
+    return \AdevPmftc\NovaDataSync\Export\Models\Export::query()
         ->where('user_id', $userId)
         ->where('status', 'Processing') // atau status != 'Completed'
         ->pluck('id');

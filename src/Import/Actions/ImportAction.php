@@ -1,11 +1,11 @@
 <?php
 
-namespace Appwrd\NovaDataSync\Import\Actions;
+namespace AdevPmftc\NovaDataSync\Import\Actions;
 
-use Appwrd\NovaDataSync\Enum\Status;
-use Appwrd\NovaDataSync\Import\Jobs\BulkImportProcessor;
-use Appwrd\NovaDataSync\Import\Jobs\ImportProcessor;
-use Appwrd\NovaDataSync\Import\Models\Import;
+use AdevPmftc\NovaDataSync\Enum\Status;
+use AdevPmftc\NovaDataSync\Import\Jobs\BulkImportProcessor;
+use AdevPmftc\NovaDataSync\Import\Jobs\ImportProcessor;
+use AdevPmftc\NovaDataSync\Import\Models\Import;
 use Illuminate\Contracts\Auth\Authenticatable;
 use InvalidArgumentException;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
