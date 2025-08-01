@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
 
 Route::get('/imports/sample', ImportSampleController::class);
 Route::get('/export-status/{userId}', function ($userId) {
-    $latestExport = \Appwrd\NovaDataSync\Export\Models\Export::where('user_id', $userId)
+    $latestExport = \AdevPmftc\NovaDataSync\Export\Models\Export::where('user_id', $userId)
         ->latest()
         ->first();
 
