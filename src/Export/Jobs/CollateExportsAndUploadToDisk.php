@@ -97,7 +97,7 @@ class CollateExportsAndUploadToDisk implements ShouldQueue
             ]);
 
             event(new ExportCompletedEvent($this->export));
-            cache()->put('export_done_user_' . $this->export->userId, true, now()->addMinutes(1));
+            // cache()->put('export_done_user_' . $this->export->userId, true, now()->addMinutes(1));
 
             Log::info(sprintf('[%s] [%s] Update export completed', self::class, $this->batchUuid), [
                 'export' => $this->export

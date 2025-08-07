@@ -87,8 +87,10 @@ abstract class ExportProcessor implements ShouldQueue
                 'status' => Status::COMPLETED->value,
                 'completed_at' => now(),
             ]);
-            cache()->put('export_done_user_' . $this->userId, true, now()->addMinutes(1));
-            sleep(3);
+            cache()->put("export_alert_user_{$this->userId}", [
+                'filename' => $export->filename,
+                'time' => now(),
+            ], now()->addMinutes(2));
             $export->delete();
             Log::info(sprintf('[%s] [%s] No records to export', self::class, $batchUuid), $export->toArray());
             return;

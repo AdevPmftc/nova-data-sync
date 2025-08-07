@@ -1,32 +1,25 @@
 const userId = Nova.config('userId');
-let alertShown = false;
 
 if (userId) {
-  fetch(`/nova-vendor/nova-data-sync/export-ongoing/${userId}`)
+  // Step 1: Ambil data tanpa mark
+  fetch(`/nova-vendor/nova-data-sync/export-alerts/${userId}`)
     .then(res => res.json())
-    .then(exportIdsToWatch => {
-      exportIdsToWatch.forEach(exportId => {
-        const interval = setInterval(() => {
-          fetch(`/nova-vendor/nova-data-sync/export-status/${exportId}`)
-            .then(res => res.json())
-            .then(data => {
-              if (data.done) {
-                clearInterval(interval);
+    .then(exports => {
+      if (exports.length > 0) {
+        // Tampilkan alert
+        exports.forEach(item => {
+          const message = item.filename
+            ? `Export finished`
+            : `Export finished (no file)`;
 
-                if (data.filename) {
-                  Nova.success(`Export finished.`);
-                } else {
-                  Nova.success(`xport finished (no data).`);
-                }
+          Nova.success(message);
+        });
 
-                // optional: clear status
-                fetch(`/nova-vendor/nova-data-sync/export-status/${exportId}?clear=true`);
-              }
-            })
-            .catch(err => {
-              console.error(`Error polling export ${exportId}:`, err);
-            });
-        }, 3000); // tiap 3 detik
-      });
+        // Step 2: Panggil lagi dengan mark=1 (masih GET)
+        fetch(`/nova-vendor/nova-data-sync/export-alerts/${userId}?mark=1`);
+      }
+    })
+    .catch(err => {
+      console.error('Error checking export alerts:', err);
     });
 }

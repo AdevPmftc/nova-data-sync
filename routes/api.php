@@ -17,9 +17,44 @@ use Illuminate\Support\Carbon;
 */
 
 Route::get('/imports/sample', ImportSampleController::class);
-Route::get('/export-ongoing/{userId}', function ($userId) {
-    return \AdevPmftc\NovaDataSync\Export\Models\Export::query()
+Route::get('/export-alerts/{userId}', function ($userId) {
+    $shouldMark = request()->boolean('mark');
+
+    // Ambil dari DB: export yang Completed dan belum ditampilkan
+    $exports = \AdevPmftc\NovaDataSync\Export\Models\Export::query()
         ->where('user_id', $userId)
-        ->where('status', 'Processing') // atau status != 'Completed'
-        ->pluck('id');
+        ->where('status', 'Completed')
+        ->where('updated_at', '>=', now()->subHour())
+        ->orderByDesc('id')
+        ->get()
+        ->filter(fn ($export) => !Cache::has("export_alert_shown_{$export->id}"));
+
+    // Ambil dari cache: export kosong yang sudah dihapus
+    $emptyExport = cache()->get("export_alert_user_{$userId}");
+
+    // Mark as shown
+    if ($shouldMark) {
+        foreach ($exports as $export) {
+            cache()->put("export_alert_shown_{$export->id}", true, now()->addHours(1));
+        }
+
+        if ($emptyExport) {
+            cache()->forget("export_alert_user_{$userId}");
+        }
+    }
+
+    // Siapkan response
+    $response = $exports->map(fn ($export) => [
+        'id' => $export->id,
+        'filename' => $export->filename,
+    ])->values();
+
+    if ($emptyExport) {
+        $response->push([
+            'id' => null,
+            'filename' => $emptyExport['filename'] ?? null,
+        ]);
+    }
+
+    return $response;
 });
